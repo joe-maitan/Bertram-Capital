@@ -12,7 +12,6 @@ public class CoffeePaymentDecider {
     public void loadEmployees() {
         Employee bob = new Employee("Bob");
         bertramEmployees.add(bob);
-
         Employee jeremy = new Employee("Jeremy");
         bertramEmployees.add(jeremy);
 
@@ -50,23 +49,20 @@ public class CoffeePaymentDecider {
         prices.put("machiato", 3.50);
     } // End initializeMenuAndPrices
 
-    public void calculateBill() {
+    public void orderUp() {
         theBill = 0;
     
-        coworkers.put(bertramEmployees.get(bertramEmployees.indexOf(bob)), menu.get(0)); /* Bob always get a cappuccino */
-        coworkers.put(jeremy, menu.get(1)); /* Jeremy likes his coffee black */
+        coworkers.put(bertramEmployees.get(0), menu.get(0)); /* Bob always get a cappuccino */
+        coworkers.put(bertramEmployees.get(1), menu.get(1)); /* Jeremy likes his coffee black */
 
         Random rand = new Random();
         for (Employee e : bertramEmployees) {
-            if (e.equals(bertramEmployees.indexOf(bob))) {
-                coworkers.put(bob, menu.get(0));
-            } else if (e.equals(jeremy)) {
-                coworkers.put(jeremy, menu.get(1));
+            if (e.equals(bertramEmployees.get(0)) || e.equals(bertramEmployees.get(1))) {
+                theBill += prices.get(coworkers.get(e));
             } else {
                 coworkers.put(e, menu.get(rand.nextInt(menu.size())));
-            } // End if-else statements
-        
-            theBill += prices.get(coworkers.get(e));
+                theBill += prices.get(coworkers.get(e));
+            } // End if-else
         } // End for each loop
     } // End orderUp() method
     public static void main(String[] args) {
@@ -88,21 +84,21 @@ public class CoffeePaymentDecider {
                 switch (userChoice) {
                     case 1:
                         app.orderUp();
-                        Employee sacrifice;
+                        Employee randomEmployee;
                         
                         while (true) { 
                             /* use a random number generator to grab a random coworker */
-                            sacrifice = bertramEmployees.get(rand.nextInt(bertramEmployees.size()));
+                            randomEmployee = bertramEmployees.get(rand.nextInt(bertramEmployees.size()));
 
-                            if (prevPaid == sacrifice) {
-                                System.out.println(sacrifice.getName() + " has previously paid the bill. Lets pick someone else");
+                            if (prevPaid == randomEmployee) {
+                                System.out.println(randomEmployee.getName() + " has previously paid the bill. Lets pick someone else");
                             } else {
                                 break;
-                            }
+                            } // End if-else statement
                         } // End while loop
 
-                        System.out.println(String.format(sacrifice.getName() + " will cover the bill of %.2f\n", theBill)); /* output the coworkers name and how much the total bill is */
-                        prevPaid = sacrifice;
+                        System.out.println(String.format(randomEmployee.getName() + " should pay for coffee today. Total cost: $%.2f\n", theBill)); /* output the coworkers name and how much the total bill is */
+                        prevPaid = randomEmployee;
                         break;
                     case 2:
                         System.out.println("Exiting program");
