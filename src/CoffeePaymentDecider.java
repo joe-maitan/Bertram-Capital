@@ -91,7 +91,7 @@ public class CoffeePaymentDecider {
                             randomEmployee = bertramEmployees.get(rand.nextInt(bertramEmployees.size()));
 
                             if (prevPaid == randomEmployee) {
-                                System.out.println(randomEmployee.getName() + " has previously paid the bill. Lets pick someone else");
+                                // System.out.println(randomEmployee.getName() + " has previously paid the bill. Lets pick someone else");
                             } else {
                                 break;
                             } // End if-else statement
