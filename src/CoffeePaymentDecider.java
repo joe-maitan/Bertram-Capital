@@ -92,7 +92,7 @@ public class CoffeePaymentDecider {
                 input = input.toLowerCase();
                 name = input.substring(0, 1).toUpperCase();
                 name += input.substring(1);
-                System.out.println("Employee name: " + name);
+                // System.out.println("Employee name: " + name);
                 Employee e = new Employee(name);
                 bertramEmployees.add(e);
                 ++counter;
