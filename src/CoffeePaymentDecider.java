@@ -10,25 +10,11 @@ public class CoffeePaymentDecider {
     public static double theBill = 0;
 
     public void loadEmployees() {
+        // Bob and Jeremy are the two employees specified by name
         Employee bob = new Employee("Bob");
         bertramEmployees.add(bob);
         Employee jeremy = new Employee("Jeremy");
         bertramEmployees.add(jeremy);
-
-        Employee alice = new Employee("Alice");
-        bertramEmployees.add(alice);
-        
-        Employee marcus = new Employee("Marcus");
-        bertramEmployees.add(marcus);
-
-        Employee kevin = new Employee("Kevin");
-        bertramEmployees.add(kevin);
-        
-        Employee joe = new Employee("Joe");
-        bertramEmployees.add(joe);
-
-        Employee michael = new Employee("Michael");
-        bertramEmployees.add(michael);
     } // End loadEmployees() method
     
     public void initializeMenuAndPrices() {
@@ -72,12 +58,54 @@ public class CoffeePaymentDecider {
         app.initializeMenuAndPrices(); /* load the menu with items */
 
         Employee prevPaid = null;
+        String input = "";
         Scanner user_in = new Scanner(System.in);
         Random rand = new Random();
 
+        int numberOfEmployees = 0;
+        System.out.println("How many employees are joining Bob and Jeremy for their coffee run?");
+        while (true) {
+            input = user_in.nextLine();
+
+            if (input.matches("[0-7]")) {
+                numberOfEmployees = Integer.parseInt(input);
+
+                /* the regex expression [0-9] takes care of dealing with this input */
+                // if (numberOfEmployees <= 0 || numberOfEmployees >= 10) {
+                //     System.out.println("Please enter a reasonable amount of employees");
+                // } else {
+                //     break;
+                // }
+                break;
+            } else {
+                System.out.println("Please enter a reasonable amount of employees");
+            }
+        } // End while loop
+
+        int counter = 0;
+        System.out.println("Who is joining Bob and Jeremy for their coffee run?");
+        while (counter < numberOfEmployees) {
+            input = user_in.nextLine();
+
+            if (!input.matches(".*\\d.*") && input.length() > 0) {
+                String name;
+                input = input.toLowerCase();
+                name = input.substring(0, 1).toUpperCase();
+                name += input.substring(1);
+                System.out.println("Employee name: " + name);
+                Employee e = new Employee(name);
+                bertramEmployees.add(e);
+                ++counter;
+            } else {
+                System.out.println("Please enter a valid name.");
+            } // End if-else
+        } // End while loop
+
+        System.out.println();
+
         while (user_in != null) {
             System.out.println("Who will cover the bill today?\n1 - Roll the dice\n2 - Exit");
-            String input = user_in.nextLine();
+            input = user_in.nextLine();
 
             if (input.matches("[1-2]")) {
                 int userChoice = Integer.parseInt(input);
