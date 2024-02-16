@@ -11,3 +11,6 @@ each day. As you can imagine, they have a problem every day: who's turn is it to
 Write a software program to help coworkers decide who should pay for coffee. Consider that
 not all drinks cost the same, so to be fair please take this into account when crafting your
 solution.
+
+# The Solution
+Wrote a small program that initializes a small menu of items from a coffee shop and a small team of Bertram employees that go to get their coffee at said shop. This app then prompts the user two choices, randomly pick one of the coworkers to pay the bill or exit.
